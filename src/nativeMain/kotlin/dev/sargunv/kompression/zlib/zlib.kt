@@ -60,7 +60,7 @@ internal fun Source.withZStreamTo(
             Z_STREAM_END -> {
               ended = true
             }
-            else -> error("unexpected zlib return code: $ret")
+            else -> error("unexpected: $ret")
           }
 
           val bytesWritten = output.size - zStream.outputBytesAvailable.toInt()

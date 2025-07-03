@@ -36,11 +36,12 @@ kotlin {
 
   jvm()
 
-  //  js(IR) {
-  //    browser()
-  //    nodejs()
-  //  }
-  //
+  js(IR) {
+    browser()
+    nodejs()
+    compilerOptions { useEsClasses = true }
+  }
+
   //  wasmJs {
   //    browser()
   //    nodejs()
@@ -80,6 +81,8 @@ kotlin {
       implementation(kotlin("stdlib"))
       implementation(libs.kotlinx.io.core)
     }
+    jsMain { dependencies { implementation(npm("pako", libs.versions.npm.pako.get())) } }
+    //    wasmJsMain { dependencies { implementation(npm("pako", libs.versions.npm.pako.get())) } }
     commonTest.dependencies { implementation(kotlin("test")) }
   }
 }

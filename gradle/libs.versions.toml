@@ -1,5 +1,6 @@
 [versions]
 kotlinx-io = "0.8.0"
+npm-pako = "2.1.0"
 
 gradle-dokka = "2.0.0"
 gradle-jgitver = "0.10.0-rc03"
