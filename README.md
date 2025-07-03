@@ -8,3 +8,5 @@
 
 Kompression is a WIP [Kotlin Multiplatform] library for compression and
 decompression of data.
+
+[Kotlin Multiplatform]: https://kotlinlang.org/docs/multiplatform.html
