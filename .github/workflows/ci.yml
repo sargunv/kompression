@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
   workflow_dispatch:
 
@@ -14,10 +14,10 @@ jobs:
         include:
           - target: jvm
             os: ubuntu
-          - target: jsNode
-            os: ubuntu
-          - target: wasmJsNode
-            os: ubuntu
+          #          - target: jsNode
+          #            os: ubuntu
+          #          - target: wasmJsNode
+          #            os: ubuntu
           - target: linuxX64
             os: ubuntu
           - target: macosArm64

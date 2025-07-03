@@ -9,7 +9,7 @@ class InflaterSinkTest {
   private fun testcase(sample: SampleData) {
     val inflated = Buffer()
     inflated.use { sample.deflated.asSource().transferTo(InflaterSink(it)) }
-    assertEquals(inflated.readString(), sample.original)
+    assertEquals(sample.original, inflated.readString())
   }
 
   @Test fun empty() = testcase(SampleData.empty)
