@@ -6,7 +6,8 @@
 
 # Kompression
 
-Kompression is a [Kotlin Multiplatform] library for compression and decompression of data.
+Kompression is a [Kotlin Multiplatform] library for compression and
+decompression of data.
 
 ## Usage
 

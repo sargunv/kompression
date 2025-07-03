@@ -22,6 +22,6 @@ public actual class InflaterSink actual constructor(private val sink: Sink) : Ra
 
   actual override fun write(source: Buffer, byteCount: Long) {
     if (closed) error("already closed")
-    inflater.inflate(source, sink, maxReadBytes = byteCount)
+    inflater.transfer(source, sink, maxReadBytes = byteCount)
   }
 }

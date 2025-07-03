@@ -1,10 +1,10 @@
 package dev.sargunv.kompression.zlib
 
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlinx.io.Buffer
 import kotlinx.io.buffered
 import kotlinx.io.readString
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class DeflaterSinkTest {
   private fun testcase(sample: SampleData) {

@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -41,7 +41,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: "./.github/actions/setup"
-      - run: "./gradlew generateDocs"
+      - run: "./gradlew :generateDocs"
       - uses: "actions/upload-pages-artifact@v3"
         with:
           path: "build/docs"
@@ -57,7 +57,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: "./.github/actions/setup"
-      - run: "./gradlew spotlessApply"
+      - run: "./gradlew :spotlessApply"
       - if: "${{ github.event_name == 'pull_request' }}"
         uses: reviewdog/action-suggester@v1
         with:

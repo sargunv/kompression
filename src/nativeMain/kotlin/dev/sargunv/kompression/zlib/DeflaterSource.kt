@@ -19,6 +19,6 @@ public actual class DeflaterSource actual constructor(private val source: Source
   actual override fun readAtMostTo(sink: Buffer, byteCount: Long): Long {
     if (closed) error("already closed")
     if (source.exhausted()) return -1L
-    return deflater.deflate(source = source, sink = sink, maxReadBytes = byteCount)
+    return deflater.transfer(source = source, sink = sink, maxReadBytes = byteCount)
   }
 }

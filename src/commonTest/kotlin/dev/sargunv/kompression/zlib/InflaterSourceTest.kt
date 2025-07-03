@@ -1,9 +1,9 @@
 package dev.sargunv.kompression.zlib
 
-import kotlinx.io.buffered
-import kotlinx.io.readString
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.io.buffered
+import kotlinx.io.readString
 
 class InflaterSourceTest {
   private fun testcase(sample: SampleData) {

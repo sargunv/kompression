@@ -8,7 +8,7 @@ import kotlinx.cinterop.nativeHeap
 @OptIn(ExperimentalForeignApi::class)
 internal open class SafeNativeObj<T : CVariable>(self: T) : AutoCloseable {
   private var isClosed = false
-  protected val self = self
+  protected val impl = self
     get() {
       if (isClosed) error("used after close")
       return field
@@ -16,7 +16,7 @@ internal open class SafeNativeObj<T : CVariable>(self: T) : AutoCloseable {
 
   override fun close() {
     if (isClosed) return
-    nativeHeap.free(self)
+    nativeHeap.free(impl)
     isClosed = true
   }
 }

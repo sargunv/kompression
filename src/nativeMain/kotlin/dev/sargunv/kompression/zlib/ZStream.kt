@@ -33,58 +33,58 @@ import platform.zlib.z_stream
 internal class ZStream() : SafeNativeObj<z_stream>(nativeHeap.alloc<z_stream>()) {
 
   val inputBytesAvailable: UInt
-    get() = self.avail_in
+    get() = impl.avail_in
 
   @OptIn(UnsafeNumber::class)
   val totalBytesRead: ULong
-    get() = self.total_in.toULong()
+    get() = impl.total_in.toULong()
 
   val outputBytesAvailable: UInt
-    get() = self.avail_out
+    get() = impl.avail_out
 
   @OptIn(UnsafeNumber::class)
   val totalBytesWritten: ULong
-    get() = self.total_out.toULong()
+    get() = impl.total_out.toULong()
 
   /** Must call this when inputBytesAvailable has dropped to zero. */
   fun setInput(buffer: Pinned<ByteArray>, offset: Int = 0, available: Int) {
-    self.next_in = buffer.addressOf(offset).reinterpret()
-    self.avail_in = available.toUInt()
+    impl.next_in = buffer.addressOf(offset).reinterpret()
+    impl.avail_in = available.toUInt()
   }
 
   /** Must call this when outputBytesAvailable has dropped to zero. */
   fun setOutput(buffer: Pinned<ByteArray>, offset: Int = 0, available: Int) {
-    self.next_out = buffer.addressOf(offset).reinterpret()
-    self.avail_out = available.toUInt()
+    impl.next_out = buffer.addressOf(offset).reinterpret()
+    impl.avail_out = available.toUInt()
   }
 
   fun deflateInit(level: Int): Int {
-    self.zalloc = interpretCPointer(nativeNullPtr)
-    self.zfree = interpretCPointer(nativeNullPtr)
-    self.opaque = interpretCPointer(nativeNullPtr)
-    return handleErrorCode { platform.zlib.deflateInit(self.ptr, level) }
+    impl.zalloc = interpretCPointer(nativeNullPtr)
+    impl.zfree = interpretCPointer(nativeNullPtr)
+    impl.opaque = interpretCPointer(nativeNullPtr)
+    return handleErrorCode { platform.zlib.deflateInit(impl.ptr, level) }
   }
 
   fun inflateInit(): Int {
-    self.next_in = interpretCPointer(nativeNullPtr)
-    self.avail_in = 0u
-    self.zalloc = interpretCPointer(nativeNullPtr)
-    self.zfree = interpretCPointer(nativeNullPtr)
-    self.opaque = interpretCPointer(nativeNullPtr)
-    return handleErrorCode { platform.zlib.inflateInit(self.ptr) }
+    impl.next_in = interpretCPointer(nativeNullPtr)
+    impl.avail_in = 0u
+    impl.zalloc = interpretCPointer(nativeNullPtr)
+    impl.zfree = interpretCPointer(nativeNullPtr)
+    impl.opaque = interpretCPointer(nativeNullPtr)
+    return handleErrorCode { platform.zlib.inflateInit(impl.ptr) }
   }
 
-  fun deflate(mode: Flush): Int = handleErrorCode { platform.zlib.deflate(self.ptr, mode.value) }
+  fun deflate(mode: Flush): Int = handleErrorCode { platform.zlib.deflate(impl.ptr, mode.value) }
 
-  fun inflate(mode: Flush): Int = handleErrorCode { platform.zlib.inflate(self.ptr, mode.value) }
+  fun inflate(mode: Flush): Int = handleErrorCode { platform.zlib.inflate(impl.ptr, mode.value) }
 
-  fun deflateEnd() = handleErrorCode { platform.zlib.deflateEnd(self.ptr) }
+  fun deflateEnd() = handleErrorCode { platform.zlib.deflateEnd(impl.ptr) }
 
-  fun inflateEnd() = handleErrorCode { platform.zlib.inflateEnd(self.ptr) }
+  fun inflateEnd() = handleErrorCode { platform.zlib.inflateEnd(impl.ptr) }
 
-  fun deflateReset() = handleErrorCode { platform.zlib.deflateReset(self.ptr) }
+  fun deflateReset() = handleErrorCode { platform.zlib.deflateReset(impl.ptr) }
 
-  fun inflateReset() = handleErrorCode { platform.zlib.inflateReset(self.ptr) }
+  fun inflateReset() = handleErrorCode { platform.zlib.inflateReset(impl.ptr) }
 
   private inline fun handleErrorCode(block: () -> Int) =
     when (val ret = block()) {
@@ -92,12 +92,12 @@ internal class ZStream() : SafeNativeObj<z_stream>(nativeHeap.alloc<z_stream>())
       Z_NEED_DICT,
       Z_STREAM_END -> ret
 
-      Z_ERRNO -> error("Z_ERRNO: ${self.msg?.toKString()}")
-      Z_STREAM_ERROR -> error("Z_STREAM_ERROR: ${self.msg?.toKString()}")
-      Z_DATA_ERROR -> error("Z_DATA_ERROR: ${self.msg?.toKString()}")
-      Z_MEM_ERROR -> error("Z_MEM_ERROR: ${self.msg?.toKString()}")
-      Z_BUF_ERROR -> error("Z_BUF_ERROR: ${self.msg?.toKString()}")
-      Z_VERSION_ERROR -> error("Z_VERSION_ERROR: ${self.msg?.toKString()}")
+      Z_ERRNO -> error("Z_ERRNO: ${impl.msg?.toKString()}")
+      Z_STREAM_ERROR -> error("Z_STREAM_ERROR: ${impl.msg?.toKString()}")
+      Z_DATA_ERROR -> error("Z_DATA_ERROR: ${impl.msg?.toKString()}")
+      Z_MEM_ERROR -> error("Z_MEM_ERROR: ${impl.msg?.toKString()}")
+      Z_BUF_ERROR -> error("Z_BUF_ERROR: ${impl.msg?.toKString()}")
+      Z_VERSION_ERROR -> error("Z_VERSION_ERROR: ${impl.msg?.toKString()}")
       else -> error("Unknown zlib error code: $ret")
     }
 

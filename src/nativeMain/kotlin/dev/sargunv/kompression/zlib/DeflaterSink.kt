@@ -22,6 +22,6 @@ public actual class DeflaterSink actual constructor(private val sink: Sink, leve
 
   actual override fun write(source: Buffer, byteCount: Long) {
     if (closed) error("already closed")
-    deflater.deflate(source, sink, maxReadBytes = byteCount)
+    deflater.transfer(source, sink, maxReadBytes = byteCount)
   }
 }

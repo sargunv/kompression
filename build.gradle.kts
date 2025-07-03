@@ -28,9 +28,9 @@ kotlin {
   compilerOptions {
     allWarningsAsErrors = true
     freeCompilerArgs.addAll(
-        "-Xexpect-actual-classes",
-        "-Xcontext-sensitive-resolution",
-        "-Xconsistent-data-class-copy-visibility",
+      "-Xexpect-actual-classes",
+      "-Xcontext-sensitive-resolution",
+      "-Xconsistent-data-class-copy-visibility",
     )
   }
 
