@@ -5,11 +5,11 @@ import kotlin.test.assertEquals
 import kotlinx.io.Buffer
 import kotlinx.io.readString
 
-class InflaterSinkTest {
+class InflaterTest {
   private fun testcase(sample: SampleData) {
-    val inflated = Buffer()
-    inflated.use { sample.deflated.asSource().transferTo(InflaterSink(it)) }
-    assertEquals(sample.original, inflated.readString())
+    val dest = Buffer()
+    sample.deflated.asSource().inflateTo(dest)
+    assertEquals(sample.original, dest.readString())
   }
 
   @Test fun empty() = testcase(SampleData.empty)
