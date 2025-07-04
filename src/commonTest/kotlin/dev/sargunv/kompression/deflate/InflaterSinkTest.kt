@@ -1,14 +1,15 @@
-package dev.sargunv.kompression.zlib
+package dev.sargunv.kompression.deflate
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.io.Buffer
+import kotlinx.io.Sink
 import kotlinx.io.readString
 
-class InflaterTest {
+class InflaterSinkTest {
   private fun testcase(sample: SampleData) {
     val dest = Buffer()
-    sample.deflated.asSource().inflateTo(dest)
+    sample.deflated.asSource().transferTo((dest as Sink).inflated())
     assertEquals(sample.original, dest.readString())
   }
 

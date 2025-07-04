@@ -1,4 +1,4 @@
-package dev.sargunv.kompression.zlib
+package dev.sargunv.kompression.deflate
 
 import kotlin.io.encoding.Base64
 

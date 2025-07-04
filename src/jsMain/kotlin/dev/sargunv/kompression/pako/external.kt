@@ -1,4 +1,4 @@
-package dev.sargunv.kompression.zlib
+package dev.sargunv.kompression.pako
 
 import org.khronos.webgl.Uint8Array
 
